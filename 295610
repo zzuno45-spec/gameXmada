@@ -1,0 +1,3123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GameSearch - Jeux Mobile</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f6f8fc;
+    color:#202124;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:70px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 15px rgba(0,0,0,0.08);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span:nth-child(1){
+    color:#4285f4;
+}
+
+.logo span:nth-child(2){
+    color:#ea4335;
+}
+
+.logo span:nth-child(3){
+    color:#fbbc05;
+}
+
+.logo span:nth-child(4){
+    color:#34a853;
+}
+
+.logo small{
+    color:#555;
+    font-size:14px;
+    margin-left:5px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-size:15px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#4285f4;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:430px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:50px 20px;
+    background:
+    radial-gradient(circle at top left,#e8f0fe,transparent 40%),
+    radial-gradient(circle at bottom right,#fce8e6,transparent 40%);
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.hero h1 span:nth-child(1){
+    color:#4285f4;
+}
+
+.hero h1 span:nth-child(2){
+    color:#ea4335;
+}
+
+.hero h1 span:nth-child(3){
+    color:#fbbc05;
+}
+
+.hero h1 span:nth-child(4){
+    color:#34a853;
+}
+
+.hero p{
+    font-size:18px;
+    color:#666;
+    margin-bottom:30px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    width:100%;
+    max-width:700px;
+    height:60px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:35px;
+    display:flex;
+    align-items:center;
+    padding:5px 7px 5px 20px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.1);
+}
+
+.search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:16px;
+    background:transparent;
+}
+
+.search-box button{
+    height:48px;
+    padding:0 25px;
+    border:none;
+    border-radius:30px;
+    background:#4285f4;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#3367d6;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+
+.categories{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:30px 20px 10px;
+}
+
+.category{
+    padding:11px 20px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.category:hover,
+.category.active{
+    background:#4285f4;
+    color:white;
+    border-color:#4285f4;
+}
+
+/* =========================
+   GAME SECTION
+========================= */
+
+.games-section{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 25px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.section-title span{
+    color:#777;
+    font-size:14px;
+}
+
+/* =========================
+   GAME GRID
+========================= */
+
+.games{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+/* =========================
+   GAME CARD
+========================= */
+
+.game-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.game-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.15);
+}
+
+.game-cover{
+    height:170px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    position:relative;
+}
+
+.cover1{
+    background:
+    linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.cover2{
+    background:
+    linear-gradient(135deg,#4776e6,#8e54e9);
+}
+
+.cover3{
+    background:
+    linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.cover4{
+    background:
+    linear-gradient(135deg,#f7971e,#ffd200);
+}
+
+.cover5{
+    background:
+    linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.cover6{
+    background:
+    linear-gradient(135deg,#8e2de2,#4a00e0);
+}
+
+.badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:white;
+    color:#333;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* =========================
+   GAME INFO
+========================= */
+
+.game-info{
+    padding:20px;
+}
+
+.game-info h3{
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.game-info p{
+    color:#777;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.rating{
+    color:#fbbc05;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.game-button{
+    display:inline-block;
+    text-decoration:none;
+    background:#4285f4;
+    color:white;
+    padding:10px 18px;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.game-button:hover{
+    background:#3367d6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#202124;
+    color:white;
+    padding:40px 20px;
+    text-align:center;
+    margin-top:30px;
+}
+
+footer .logo{
+    margin-bottom:10px;
+}
+
+footer p{
+    color:#aaa;
+    font-size:14px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    header{
+        padding:0 15px;
+    }
+
+    nav{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .logo small{
+        display:none;
+    }
+
+    .hero{
+        min-height:400px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .search-box{
+        height:55px;
+    }
+
+    .search-box button{
+        padding:0 17px;
+    }
+
+    .games-section{
+        padding:35px 15px;
+    }
+
+    .section-title h2{
+        font-size:22px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+        <small>Mobile Games</small>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#">Accueil</a>
+
+        <a href="#games">
+            Jeux
+        </a>
+
+        <a href="#about">
+            À propos
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+    </h1>
+
+
+    <p>
+
+        Découvrez et recherchez
+        vos jeux mobiles préférés
+
+    </p>
+
+
+    <div class="search-box">
+
+        <input
+
+        type="text"
+
+        id="searchInput"
+
+        placeholder="Rechercher un jeu..."
+
+        onkeyup="searchGame()"
+
+        >
+
+        <button onclick="searchGame()">
+
+            🔍 Rechercher
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<div class="categories">
+
+    <div
+    class="category active"
+    onclick="filterGames('all',this)">
+
+        🎮 Tous
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('battle',this)">
+
+        🔫 Battle Royale
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('action',this)">
+
+        🔥 Action
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('sport',this)">
+
+        ⚽ Sport
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('racing',this)">
+
+        🏎️ Course
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section
+class="games-section"
+id="games">
+
+
+    <div class="section-title">
+
+        <h2>
+            🔥 Jeux populaires
+        </h2>
+
+        <span>
+            Découvrez les meilleurs jeux
+        </span>
+
+    </div>
+
+
+
+    <div
+    class="games"
+    id="gamesList">
+
+
+
+        <!-- COD MOBILE -->
+
+        <div
+        class="game-card"
+        data-category="battle">
+
+            <div
+            class="game-cover cover1">
+
+                🔫
+
+                <div class="badge">
+
+                    BATTLE ROYALE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Call of Duty Mobile
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    FPS mobile avec
+                    Multiplayer et
+                    Battle Royale.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PUBG -->
+
+        <div
+        class="game-card"
+        data-category="battle">
+
+            <div
+            class="game-cover cover2">
+
+                🪖
+
+                <div class="badge">
+
+                    BATTLE ROYALE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    PUBG Mobile
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Combat réaliste
+                    et compétitif
+                    sur mobile.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FREE FIRE -->
+
+        <div
+        class="game-card"
+        data-category="action">
+
+            <div
+            class="game-cover cover3">
+
+                🔥
+
+                <div class="badge">
+
+                    ACTION
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Free Fire
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Battle Royale
+                    rapide et
+                    amusant.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ASPHALT -->
+
+        <div
+        class="game-card"
+        data-category="racing">
+
+            <div
+            class="game-cover cover4">
+
+                🏎️
+
+                <div class="badge">
+
+                    COURSE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Asphalt 9
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Course automobile
+                    avec des voitures
+                    incroyables.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EFOOTBALL -->
+
+        <div
+        class="game-card"
+        data-category="sport">
+
+            <div
+            class="game-cover cover5">
+
+                ⚽
+
+                <div class="badge">
+
+                    SPORT
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    eFootball
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Football mobile
+                    avec des matchs
+                    réalistes.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ZOMBIE -->
+
+        <div
+        class="game-card"
+        data-category="action">
+
+            <div
+            class="game-cover cover6">
+
+                🧟
+
+                <div class="badge">
+
+                    ACTION
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Zombie Survival
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Survivez dans
+                    un monde rempli
+                    de zombies.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer id="about">
+
+    <div class="logo">
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+    </div>
+
+    <p>
+
+        © 2026 GameSearch.
+        Tous droits réservés.
+
+    </p>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+/* RECHERCHE */
+
+function searchGame(){
+
+    let input =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+
+    let games =
+    document
+    .querySelectorAll(".game-card");
+
+
+    games.forEach(function(game){
+
+        let name =
+        game
+        .querySelector("h3")
+        .innerText
+        .toLowerCase();
+
+
+        if(name.includes(input)){
+
+            game.style.display =
+            "block";
+
+        }else{
+
+            game.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+
+
+/* FILTRE */
+
+function filterGames(category,button){
+
+    let games =
+    document
+    .querySelectorAll(".game-card");
+
+
+    let categories =
+    document
+    .querySelectorAll(".category");
+
+
+    categories.forEach(function(cat){
+
+        cat.classList
+        .remove("active");
+
+    });
+
+
+    button
+    .classList
+    .add("active");
+
+
+    games.forEach(function(game){
+
+        if(
+
+            category === "all"
+
+            ||
+
+            game.dataset.category
+            === category
+
+        ){
+
+            game.style.display =
+            "block";
+
+        }else{
+
+            game.style.display =
+            "none";
+
+        }<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GameSearch - Jeux Mobile</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f6f8fc;
+    color:#202124;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:70px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 15px rgba(0,0,0,0.08);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span:nth-child(1){
+    color:#4285f4;
+}
+
+.logo span:nth-child(2){
+    color:#ea4335;
+}
+
+.logo span:nth-child(3){
+    color:#fbbc05;
+}
+
+.logo span:nth-child(4){
+    color:#34a853;
+}
+
+.logo small{
+    color:#555;
+    font-size:14px;
+    margin-left:5px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-size:15px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#4285f4;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:430px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:50px 20px;
+    background:
+    radial-gradient(circle at top left,#e8f0fe,transparent 40%),
+    radial-gradient(circle at bottom right,#fce8e6,transparent 40%);
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.hero h1 span:nth-child(1){
+    color:#4285f4;
+}
+
+.hero h1 span:nth-child(2){
+    color:#ea4335;
+}
+
+.hero h1 span:nth-child(3){
+    color:#fbbc05;
+}
+
+.hero h1 span:nth-child(4){
+    color:#34a853;
+}
+
+.hero p{
+    font-size:18px;
+    color:#666;
+    margin-bottom:30px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    width:100%;
+    max-width:700px;
+    height:60px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:35px;
+    display:flex;
+    align-items:center;
+    padding:5px 7px 5px 20px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.1);
+}
+
+.search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:16px;
+    background:transparent;
+}
+
+.search-box button{
+    height:48px;
+    padding:0 25px;
+    border:none;
+    border-radius:30px;
+    background:#4285f4;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#3367d6;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+
+.categories{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:30px 20px 10px;
+}
+
+.category{
+    padding:11px 20px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.category:hover,
+.category.active{
+    background:#4285f4;
+    color:white;
+    border-color:#4285f4;
+}
+
+/* =========================
+   GAME SECTION
+========================= */
+
+.games-section{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 25px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.section-title span{
+    color:#777;
+    font-size:14px;
+}
+
+/* =========================
+   GAME GRID
+========================= */
+
+.games{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+/* =========================
+   GAME CARD
+========================= */
+
+.game-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.game-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.15);
+}
+
+.game-cover{
+    height:170px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    position:relative;
+}
+
+.cover1{
+    background:
+    linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.cover2{
+    background:
+    linear-gradient(135deg,#4776e6,#8e54e9);
+}
+
+.cover3{
+    background:
+    linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.cover4{
+    background:
+    linear-gradient(135deg,#f7971e,#ffd200);
+}
+
+.cover5{
+    background:
+    linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.cover6{
+    background:
+    linear-gradient(135deg,#8e2de2,#4a00e0);
+}
+
+.badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:white;
+    color:#333;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* =========================
+   GAME INFO
+========================= */
+
+.game-info{
+    padding:20px;
+}
+
+.game-info h3{
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.game-info p{
+    color:#777;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.rating{
+    color:#fbbc05;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.game-button{
+    display:inline-block;
+    text-decoration:none;
+    background:#4285f4;
+    color:white;
+    padding:10px 18px;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.game-button:hover{
+    background:#3367d6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#202124;
+    color:white;
+    padding:40px 20px;
+    text-align:center;
+    margin-top:30px;
+}
+
+footer .logo{
+    margin-bottom:10px;
+}
+
+footer p{
+    color:#aaa;
+    font-size:14px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    header{
+        padding:0 15px;
+    }
+
+    nav{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .logo small{
+        display:none;
+    }
+
+    .hero{
+        min-height:400px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .search-box{
+        height:55px;
+    }
+
+    .search-box button{
+        padding:0 17px;
+    }
+
+    .games-section{
+        padding:35px 15px;
+    }
+
+    .section-title h2{
+        font-size:22px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+        <small>Mobile Games</small>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#">Accueil</a>
+
+        <a href="#games">
+            Jeux
+        </a>
+
+        <a href="#about">
+            À propos
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+    </h1>
+
+
+    <p>
+
+        Découvrez et recherchez
+        vos jeux mobiles préférés
+
+    </p>
+
+
+    <div class="search-box">
+
+        <input
+
+        type="text"
+
+        id="searchInput"
+
+        placeholder="Rechercher un jeu..."
+
+        onkeyup="searchGame()"
+
+        >
+
+        <button onclick="searchGame()">
+
+            🔍 Rechercher
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<div class="categories">
+
+    <div
+    class="category active"
+    onclick="filterGames('all',this)">
+
+        🎮 Tous
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('battle',this)">
+
+        🔫 Battle Royale
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('action',this)">
+
+        🔥 Action
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('sport',this)">
+
+        ⚽ Sport
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('racing',this)">
+
+        🏎️ Course
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section
+class="games-section"
+id="games">
+
+
+    <div class="section-title">
+
+        <h2>
+            🔥 Jeux populaires
+        </h2>
+
+        <span>
+            Découvrez les meilleurs jeux
+        </span>
+
+    </div>
+
+
+
+    <div
+    class="games"
+    id="gamesList">
+
+
+
+        <!-- COD MOBILE -->
+
+        <div
+        class="game-card"
+        data-category="battle">
+
+            <div
+            class="game-cover cover1">
+
+                🔫
+
+                <div class="badge">
+
+                    BATTLE ROYALE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Call of Duty Mobile
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    FPS mobile avec
+                    Multiplayer et
+                    Battle Royale.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PUBG -->
+
+        <div
+        class="game-card"
+        data-category="battle">
+
+            <div
+            class="game-cover cover2">
+
+                🪖
+
+                <div class="badge">
+
+                    BATTLE ROYALE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    PUBG Mobile
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Combat réaliste
+                    et compétitif
+                    sur mobile.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FREE FIRE -->
+
+        <div
+        class="game-card"
+        data-category="action">
+
+            <div
+            class="game-cover cover3">
+
+                🔥
+
+                <div class="badge">
+
+                    ACTION
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Free Fire
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Battle Royale
+                    rapide et
+                    amusant.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ASPHALT -->
+
+        <div
+        class="game-card"
+        data-category="racing">
+
+            <div
+            class="game-cover cover4">
+
+                🏎️
+
+                <div class="badge">
+
+                    COURSE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Asphalt 9
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Course automobile
+                    avec des voitures
+                    incroyables.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EFOOTBALL -->
+
+        <div
+        class="game-card"
+        data-category="sport">
+
+            <div
+            class="game-cover cover5">
+
+                ⚽
+
+                <div class="badge">
+
+                    SPORT
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    eFootball
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Football mobile
+                    avec des matchs
+                    réalistes.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ZOMBIE -->
+
+        <div
+        class="game-card"
+        data-category="action">
+
+            <div
+            class="game-cover cover6">
+
+                🧟
+
+                <div class="badge">
+
+                    ACTION
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Zombie Survival
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Survivez dans
+                    un monde rempli
+                    de zombies.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer id="about">
+
+    <div class="logo">
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+    </div>
+
+    <p>
+
+        © 2026 GameSearch.
+        Tous droits réservés.
+
+    </p>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+/* RECHERCHE */
+
+function searchGame(){
+
+    let input =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+
+    let games =
+    document
+    .querySelectorAll(".game-card");
+
+
+    games.forEach(function(game){
+
+        let name =
+        game
+        .querySelector("h3")
+        .innerText
+        .toLowerCase();
+
+
+        if(name.includes(input)){
+
+            game.style.display =
+            "block";
+
+        }else{
+
+            game.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+
+
+/* FILTRE */
+
+function filterGames(category,button){
+
+    let games =
+    document
+    .querySelectorAll(".game-card");
+
+
+    let categories =
+    document
+    .querySelectorAll(".category");
+
+
+    categories.forEach(function(cat){
+
+        cat.classList
+        .remove("active");
+
+    });
+
+
+    button
+    .classList
+    .add("active");
+
+
+    games.forEach(function(game){
+
+        if(
+
+            category === "all"
+
+            ||
+
+            game.dataset.category
+            === category
+
+        ){
+
+            game.style.display =
+            "block";
+
+        }else{
+
+            game.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GameSearch - Jeux Mobile</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f6f8fc;
+    color:#202124;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:70px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 15px rgba(0,0,0,0.08);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span:nth-child(1){
+    color:#4285f4;
+}
+
+.logo span:nth-child(2){
+    color:#ea4335;
+}
+
+.logo span:nth-child(3){
+    color:#fbbc05;
+}
+
+.logo span:nth-child(4){
+    color:#34a853;
+}
+
+.logo small{
+    color:#555;
+    font-size:14px;
+    margin-left:5px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-size:15px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#4285f4;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:430px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:50px 20px;
+    background:
+    radial-gradient(circle at top left,#e8f0fe,transparent 40%),
+    radial-gradient(circle at bottom right,#fce8e6,transparent 40%);
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.hero h1 span:nth-child(1){
+    color:#4285f4;
+}
+
+.hero h1 span:nth-child(2){
+    color:#ea4335;
+}
+
+.hero h1 span:nth-child(3){
+    color:#fbbc05;
+}
+
+.hero h1 span:nth-child(4){
+    color:#34a853;
+}
+
+.hero p{
+    font-size:18px;
+    color:#666;
+    margin-bottom:30px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    width:100%;
+    max-width:700px;
+    height:60px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:35px;
+    display:flex;
+    align-items:center;
+    padding:5px 7px 5px 20px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.1);
+}
+
+.search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:16px;
+    background:transparent;
+}
+
+.search-box button{
+    height:48px;
+    padding:0 25px;
+    border:none;
+    border-radius:30px;
+    background:#4285f4;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#3367d6;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+
+.categories{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:30px 20px 10px;
+}
+
+.category{
+    padding:11px 20px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.category:hover,
+.category.active{
+    background:#4285f4;
+    color:white;
+    border-color:#4285f4;
+}
+
+/* =========================
+   GAME SECTION
+========================= */
+
+.games-section{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 25px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.section-title span{
+    color:#777;
+    font-size:14px;
+}
+
+/* =========================
+   GAME GRID
+========================= */
+
+.games{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+/* =========================
+   GAME CARD
+========================= */
+
+.game-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.game-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.15);
+}
+
+.game-cover{
+    height:170px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    position:relative;
+}
+
+.cover1{
+    background:
+    linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.cover2{
+    background:
+    linear-gradient(135deg,#4776e6,#8e54e9);
+}
+
+.cover3{
+    background:
+    linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.cover4{
+    background:
+    linear-gradient(135deg,#f7971e,#ffd200);
+}
+
+.cover5{
+    background:
+    linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.cover6{
+    background:
+    linear-gradient(135deg,#8e2de2,#4a00e0);
+}
+
+.badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:white;
+    color:#333;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* =========================
+   GAME INFO
+========================= */
+
+.game-info{
+    padding:20px;
+}
+
+.game-info h3{
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.game-info p{
+    color:#777;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.rating{
+    color:#fbbc05;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.game-button{
+    display:inline-block;
+    text-decoration:none;
+    background:#4285f4;
+    color:white;
+    padding:10px 18px;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.game-button:hover{
+    background:#3367d6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#202124;
+    color:white;
+    padding:40px 20px;
+    text-align:center;
+    margin-top:30px;
+}
+
+footer .logo{
+    margin-bottom:10px;
+}
+
+footer p{
+    color:#aaa;
+    font-size:14px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    header{
+        padding:0 15px;
+    }
+
+    nav{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .logo small{
+        display:none;
+    }
+
+    .hero{
+        min-height:400px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .search-box{
+        height:55px;
+    }
+
+    .search-box button{
+        padding:0 17px;
+    }
+
+    .games-section{
+        padding:35px 15px;
+    }
+
+    .section-title h2{
+        font-size:22px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+        <small>Mobile Games</small>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#">Accueil</a>
+
+        <a href="#games">
+            Jeux
+        </a>
+
+        <a href="#about">
+            À propos
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+    </h1>
+
+
+    <p>
+
+        Découvrez et recherchez
+        vos jeux mobiles préférés
+
+    </p>
+
+
+    <div class="search-box">
+
+        <input
+
+        type="text"
+
+        id="searchInput"
+
+        placeholder="Rechercher un jeu..."
+
+        onkeyup="searchGame()"
+
+        >
+
+        <button onclick="searchGame()">
+
+            🔍 Rechercher
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<div class="categories">
+
+    <div
+    class="category active"
+    onclick="filterGames('all',this)">
+
+        🎮 Tous
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('battle',this)">
+
+        🔫 Battle Royale
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('action',this)">
+
+        🔥 Action
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('sport',this)">
+
+        ⚽ Sport
+
+    </div>
+
+
+    <div
+    class="category"
+    onclick="filterGames('racing',this)">
+
+        🏎️ Course
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section
+class="games-section"
+id="games">
+
+
+    <div class="section-title">
+
+        <h2>
+            🔥 Jeux populaires
+        </h2>
+
+        <span>
+            Découvrez les meilleurs jeux
+        </span>
+
+    </div>
+
+
+
+    <div
+    class="games"
+    id="gamesList">
+
+
+
+        <!-- COD MOBILE -->
+
+        <div
+        class="game-card"
+        data-category="battle">
+
+            <div
+            class="game-cover cover1">
+
+                🔫
+
+                <div class="badge">
+
+                    BATTLE ROYALE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Call of Duty Mobile
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    FPS mobile avec
+                    Multiplayer et
+                    Battle Royale.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PUBG -->
+
+        <div
+        class="game-card"
+        data-category="battle">
+
+            <div
+            class="game-cover cover2">
+
+                🪖
+
+                <div class="badge">
+
+                    BATTLE ROYALE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    PUBG Mobile
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Combat réaliste
+                    et compétitif
+                    sur mobile.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FREE FIRE -->
+
+        <div
+        class="game-card"
+        data-category="action">
+
+            <div
+            class="game-cover cover3">
+
+                🔥
+
+                <div class="badge">
+
+                    ACTION
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Free Fire
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Battle Royale
+                    rapide et
+                    amusant.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ASPHALT -->
+
+        <div
+        class="game-card"
+        data-category="racing">
+
+            <div
+            class="game-cover cover4">
+
+                🏎️
+
+                <div class="badge">
+
+                    COURSE
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Asphalt 9
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Course automobile
+                    avec des voitures
+                    incroyables.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EFOOTBALL -->
+
+        <div
+        class="game-card"
+        data-category="sport">
+
+            <div
+            class="game-cover cover5">
+
+                ⚽
+
+                <div class="badge">
+
+                    SPORT
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    eFootball
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Football mobile
+                    avec des matchs
+                    réalistes.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ZOMBIE -->
+
+        <div
+        class="game-card"
+        data-category="action">
+
+            <div
+            class="game-cover cover6">
+
+                🧟
+
+                <div class="badge">
+
+                    ACTION
+
+                </div>
+
+            </div>
+
+
+            <div class="game-info">
+
+                <h3>
+                    Zombie Survival
+                </h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐
+                </div>
+
+                <p>
+                    Survivez dans
+                    un monde rempli
+                    de zombies.
+                </p>
+
+                <a
+                href="#"
+                class="game-button">
+
+                    Voir le jeu
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer id="about">
+
+    <div class="logo">
+
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+        Search
+
+    </div>
+
+    <p>
+
+        © 2026 GameSearch.
+        Tous droits réservés.
+
+    </p>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+/* RECHERCHE */
+
+function searchGame(){
+
+    let input =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+
+    let games =
+    document
+    .querySelectorAll(".game-card");
+
+
+    games.forEach(function(game){
+
+        let name =
+        game
+        .querySelector("h3")
+        .innerText
+        .toLowerCase();
+
+
+        if(name.includes(input)){
+
+            game.style.display =
+            "block";
+
+        }else{
+
+            game.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+
+
+/* FILTRE */
+
+function filterGames(category,button){
+
+    let games =
+    document
+    .querySelectorAll(".game-card");
+
+
+    let categories =
+    document
+    .querySelectorAll(".category");
+
+
+    categories.forEach(function(cat){
+
+        cat.classList
+        .remove("active");
+
+    });
+
+
+    button
+    .classList
+    .add("active");
+
+
+    games.forEach(function(game){
+
+        if(
+
+            category === "all"
+
+            ||
+
+            game.dataset.category
+            === category
+
+        ){
+
+            game.style.display =
+            "block";
+
+        }else{
+
+            game.style.display =
+            "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+    });
+
+}
+
+</script>
+
+
+</body>
+</html>
